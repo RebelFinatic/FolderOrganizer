@@ -5,6 +5,24 @@ import shutil
 # look for extensions and organize into folder categories
 # if organized print a message alerting that files are already correctly organized
 
+extensions = {
+  "Documents": ["pdf", "doc", "docx", "txt", "xls", "xlsx", "xml"],
+  "Archive": ["7z", "zip", "rar", "tar", "gz"],
+  "Audio": [],
+  "Video": ["mp4", "mkv", "mov"],
+  "Images": [],
+  "Applications": [],
+  "Others": []
+
+}
+
+############ DONT EDIT BELOW HERE ############
+
+category = list(extensions.keys())
+ext = list(extensions.values())
+#print(ext)
+#print(extensions)
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -16,35 +34,28 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-def category(dir_path):
-    # Documents
-    # Archive
-    # Audio
-    # Video
-    # Applications
-    # Others
-
-    category = ["Documents", "Archive", "Audio", "Video", "Applications", "Others"]
-
+def categorize(dir_path):
     for i in category:
         if not os.path.isdir(f"{dir_path}/{i}"):
             os.mkdir(f"{dir_path}/{i}")
         
 
 def organize(dir_path):
+
     # get the current working directory path to traverse through it later on.
     if os.path.isdir(dir_path):
-
+        categorize(dir_path)
         print(bcolors.OKGREEN + "PATH EXISTS" + bcolors.ENDC)
+        for filename in os.listdir(dir_path):
+            #for i in extensions[]
+            for i in category:
+                for x in extensions[i]:
+                    if filename.endswith(x):
+                        print(x)
+                        #base, extension = os.path.splitext(filename)
+
     else:
         print(bcolors.FAIL + "Invalid directory path specified!" + bcolors.ENDC)
 
-
-for filename in os.listdir():
-    if filename.endswith(".mkv"):
-        base, extension = os.path.splitext(filename)
-
-
-
-category("sample_data")
+#categorize("sample_data")
 organize("sample_data")
